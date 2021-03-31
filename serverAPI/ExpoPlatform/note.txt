@@ -1,0 +1,6 @@
+
+Maven
+export PATH=/Users/yao/coding/apache-maven-3.5.0/bin:$PATH
+
+
+Mysql

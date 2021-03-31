@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.atongmu.mvc.dao.NewestMapper">
+
+    <select id="getNewest" resultType="com.atongmu.mvc.model.Newest" parameterType="map">
+        select * from atm_newest order by n_created_time limit #{count};
+    </select>
+
+    <insert id="insertNewest" parameterType="newest" useGeneratedKeys="true" keyProperty="n_id">
+        insert into atm_newest(n_from, n_to, n_message, n_created_by, n_created_time, n_updated_by, n_updated_time)
+        values (#{n_from}, #{n_to}, #{n_message}, NULL, DEFAULT, NULL, DEFAULT );
+    </insert>
+
+
+
+</mapper>

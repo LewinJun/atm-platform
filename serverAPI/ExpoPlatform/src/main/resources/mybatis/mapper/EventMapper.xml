@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.atongmu.mvc.dao.EventMapper">
+
+    <select id="getEvents" resultType="com.atongmu.mvc.model.Event" parameterType="java.util.Map">
+
+        select e_id, e_logo, e_name, e_city, e_type, e_address, e_start_date, e_end_date, e_created_time, e_updated_time from atm_events
+
+
+
+
+        <choose>
+
+            <when test=" type != null and city != null">
+                where e_type = #{type} and e_city = #{city}
+            </when>
+            <when test=" type != null and city == null">
+                where e_type = #{type}
+            </when>
+            <when test=" type == null and city != null">
+                where e_city = #{city}
+            </when>
+
+        </choose>
+
+        order by e_created_time limit #{start}, #{count};
+
+
+
+    </select>
+
+    <select id="getEventById" resultType="com.atongmu.mvc.model.Event" parameterType="map">
+        select * from atm_events where e_id = #{id};
+    </select>
+
+
+    <select id="getEventNumber" resultType="java.lang.Integer" parameterType="map">
+        select count(e_id) from atm_events;
+    </select>
+
+
+
+
+</mapper>

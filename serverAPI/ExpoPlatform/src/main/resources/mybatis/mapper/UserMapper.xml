@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.atongmu.mvc.dao.UserMapper">
+
+    <select id="getUserById" resultType="com.atongmu.mvc.model.User" parameterType="map">
+        select * from atm_users where u_id = #{id};
+    </select>
+
+    <update id="updateUserById" parameterType="user" useGeneratedKeys="true" keyProperty="u_id">
+
+        update atm_users set u_avatar = #{u_avatar}, u_desc = #{u_desc}, u_address = #{u_address}, u_updated_time = DEFAULT where u_id = #{u_id};
+
+    </update>
+
+    <insert id="insertUser" parameterType="user" useGeneratedKeys="true" keyProperty="u_id">
+
+        insert into atm_users(u_name, u_phone_num, u_email, u_pwd, u_status, u_avatar, u_desc, u_address
+        , u_role, u_created_by, u_created_time, u_updated_by, u_updated_time) values(
+        #{u_name}, #{u_phone_num}, NULL, #{u_pwd}, 1, null, null, null, #{u_role}, null, default, null, default
+        );
+
+    </insert>
+
+    <select id="login" resultType="com.atongmu.mvc.model.User" parameterType="map">
+
+        select * from atm_users where u_pwd = #{u_pwd} and (u_phone_num = #{u_phone_num} || u_name = #{u_name} || u_email = #{u_email});
+
+    </select>
+
+
+
+
+</mapper>

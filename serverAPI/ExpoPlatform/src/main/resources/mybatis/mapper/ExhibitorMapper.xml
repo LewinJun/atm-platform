@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.atongmu.mvc.dao.ExhibitorMapper">
+
+    <select id="getExhibitors" resultType="com.atongmu.mvc.model.Exhibitor" parameterType="java.util.Map">
+
+        select e_id, e_logo, e_type, e_address, e_city, e_people, e_website, e_created_time, e_updated_time from atm_exhibitors
+
+        <choose>
+
+            <when test=" type != null and city != null">
+                where e_type = #{type} and e_city = #{city}
+            </when>
+            <when test=" type != null and city == null">
+                where e_type = #{type}
+            </when>
+            <when test=" type == null and city != null">
+                where e_city = #{city}
+            </when>
+
+        </choose>
+
+        order by e_created_time limit #{start}, #{count};
+
+
+
+    </select>
+
+    <select id="getExhibitorById" resultType="com.atongmu.mvc.model.Exhibitor" parameterType="map">
+        select * from atm_exhibitors where e_id = #{id};
+    </select>
+
+    <select id="getExhibitorByUId" resultType="com.atongmu.mvc.model.Exhibitor" parameterType="map">
+        select * from atm_exhibitors where u_id = #{u_id};
+    </select>
+
+    <select id="getExhibitorNumber" resultType="java.lang.Integer" parameterType="map">
+        select count(*) from atm_exhibitors;
+    </select>
+
+
+</mapper>
